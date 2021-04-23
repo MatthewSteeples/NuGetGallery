@@ -77,7 +77,9 @@ namespace GitHubVulnerabilities2Db.Collector
             nextAdvisory.Vulnerabilities.Edges = advisory.Vulnerabilities.Edges.Concat(
                 nextAdvisory.Vulnerabilities.Edges ?? Enumerable.Empty<Edge<SecurityVulnerability>>());
             // We are not querying the advisories feed at this time so we do not want to advance the advisory cursor past what it was originally.
+            // We also want to ensure a withdrawn advisory affects all vulnerabilities it comprises
             nextAdvisory.UpdatedAt = advisory.UpdatedAt;
+            nextAdvisory.WithdrawnAt = advisory.WithdrawnAt;
             return nextAdvisory;
         }
 
